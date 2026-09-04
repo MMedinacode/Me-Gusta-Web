@@ -294,6 +294,187 @@ function showMenuTab(key) {
   document.querySelectorAll('.menu-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + key));
 }
 
+/* ============================================================
+   CATERING & EVENTOS — catálogo transcrito del PDF real del
+   cliente (CATÁLOGO CÓCTEL 2025-2). Precios de referencia,
+   sujetos a confirmación por WhatsApp/email — así se aclara en
+   el propio catálogo.
+   ============================================================ */
+const CATERING_MENU = [
+  { cat: 'Cóctel Clásico', items: [
+    { n: 'Tapaditos', d: '50 unidades. Ave pimentón / salame - queso crema / quesillo ciboulette / jamón - queso / champiñón o palmito - tomate cherry - lechuga.', p: 33000 },
+    { n: 'Empanaditas', d: '50 unidades. Pino / aceituna - queso / napolitana / champiñón - queso / choclo - queso / mechada - queso / espinaca crema - queso.', p: 30000 },
+    { n: 'Mini Quiché', d: '50 unidades. Zapallo - queso azul - nueces / cebolla caramelizada - aceitunas - choclo / cebollín - jamón - champiñón / pollo espinaca / espinaca - tomate deshidratado - queso de cabra.', p: 34800 },
+    { n: 'Mini Pastel de Choclo', d: '50 unidades. Tacita de masa salada con relleno de pino y pastelera de choclo.', p: 34800 },
+    { n: 'Brocheta Capresse', d: '25 unidades. Queso de cabra - tomate cherry - albahaca.', p: 19990 },
+    { n: 'Brocheta Mediterránea', d: '25 unidades. Queso - aceituna rellena - tomate cherry - salame.', p: 19990 },
+    { n: 'Brocheta Mixta', d: '25 unidades. Pollo - carne - cebolla y pimentón.', p: 27000 },
+    { n: 'Brocheta Mar y Tierra', d: '25 unidades. Pollo - carne - camarón.', p: 29000 },
+    { n: 'Brochetas de Frutas', d: '50 unidades. Mix de frutas según estación.', p: 32500, v: 1 },
+    { n: 'Pinchos', d: '50 unidades. Champiñón - tomate cherry asado / jamón - pepinillo dill / aceituna rellena - salame / queso de cabra - tomate cherry - pesto de albahaca / jamón serrano - melón tuna (producto de temporada).', p: 31000 },
+    { n: 'Mini Hamburguesa Queso Cheddar Pepinillo', d: '20 unidades.', p: 21000 },
+    { n: 'Mini Barros Luco', d: '20 unidades. Churrasco de vacuno - queso gouda.', p: 21000 },
+    { n: 'Mini Lomito Queso', d: '20 unidades. Lomito de cerdo - queso gouda.', p: 21000 },
+    { n: 'Mini Pollo Lechuga Mayo', d: '20 unidades.', p: 21000 },
+    { n: 'Mini Chacarero', d: '20 unidades. Churrasco - poroto verde - ají verde.', p: 23000 },
+    { n: 'Mini Mechada Italiana', d: '20 unidades. Carne de vacuno mechada - tomate - palta (mayonesa aparte).', p: 26000 },
+    { n: 'Mini Mechada Queso', d: '20 unidades. Carne de vacuno mechada - queso.', p: 26000 },
+    { n: 'Mini Vegetariano', d: '20 unidades. Queso fresco - tomate cherry - champiñón - lechuga.', p: 21000, v: 1 },
+    { n: 'Pastelitos Surtidos', d: '50 unidades. Alfajores, merenguitos, pie de limón, alfajor de maicena con mermelada de frambuesa, tacitas con ganache de chocolate y mermelada de frambuesa, delicias, chilenitos, palmeritas, tacitas con pastelera, manzana y nueces.', p: 28000 },
+  ]},
+  { cat: 'Cóctel Premium', items: [
+    { n: 'Bruschettas', d: '50 unidades. Pequeña rebanada de pan tostado con aceite de oliva: salmón con queso Philadelphia y cilantro / camarón, mayonesa y palta / jamón serrano con dip de alcachofas / hummus con tomate cherry asado, pepino y ciboulette / champiñón asado, tomate cherry y aceituna.', p: 57000 },
+    { n: 'Ceviche Mixto', d: '24 vasitos. Reineta, camarón, calamar, cebolla morada, pimentón y leche de tigre.', p: 37000 },
+    { n: 'Tapaditos Premium', d: '50 unidades. Pastrami con salsa de mostaza / pavo asado con rúcula y mayonesa / queso de cabra con pesto de albahaca y tomates cherry asados / salmón ahumado y queso Philadelphia.', p: 42000 },
+    { n: 'Pinchos Premium', d: '50 unidades. Salmón ahumado - pepino - queso Philadelphia / lomo de vacuno salteado - tomate cherry y cebolla morada / berenjena - tomate asado - hummus.', p: 37000 },
+    { n: 'Brochetas de Camarones Apanados', d: '12 brochetas de 2 unidades c/u. Camarones ecuatorianos en tempura y panko, en salsa de mango al chipotle.', p: 16000 },
+    { n: 'Mini Consomé de Pollo con Crutones', d: '1 litro. Según disponibilidad.', p: null },
+    { n: 'Shot de Postres', d: '15 unidades. Mousse de manjar / pie de limón / pie de maracuyá / tiramisú / torta oreo / selva negra / torta frutal.', p: 24000 },
+    { n: 'Profiteroles', d: '24 unidades. Pasteles de masa choux rellenos con manjar o crema diplomat (crema pastelera + chantilly).', p: 25000 },
+    { n: 'Macarons', d: '24 unidades. Galleta tradicional francesa de frambuesa o chocolate, cobertura crujiente y centro húmedo.', p: 28000 },
+  ]},
+  { cat: 'Cóctel Vegano', items: [
+    { n: 'Canapés Veganos', d: '100 unidades. Hummus con tomate cherry / hummus de betarraga con almendra / not-mayo con palmito y choclito de cóctel / pasta de alcachofa decorada con pimentón.', p: 49900, v: 1 },
+    { n: 'Ceviche de Champiñón', d: '25 vasitos.', p: 33000, v: 1 },
+    { n: 'Ceviche de Palmitos', d: '25 vasitos.', p: 31000, v: 1 },
+    { n: 'Empanaditas Veganas', d: '50 unidades. Pino de soya / choclo - queso / aceituna - queso napolitana / champiñón - queso / chaparrita.', p: 55200, v: 1 },
+    { n: 'Tapaditos Veganos', d: '50 unidades. Seitán - tomate - lechuga / hummus - tomate cherry o champiñón / pasta de alcachofa o palmito - baba ganoush con cebolla encurtida en tomate.', p: 52800, v: 1 },
+    { n: 'Brochetas Vegetales', d: '50 unidades. Tomate cherry - champiñón - aceituna rellena y alcachofa / berenjena - tomate asado y hummus.', p: 48000, v: 1 },
+    { n: 'Mini Hamburguesa Queso', d: '20 unidades.', p: 25200, v: 1 },
+    { n: 'Mini Sandwich Ratatouille', d: '20 unidades. Champiñón - cebolla - zapallito italiano - berenjena.', p: 23000, v: 1 },
+    { n: 'Mini Quiches de Verduras', d: '20 unidades.', p: 34800, v: 1 },
+    { n: 'Mini Cupcakes', d: '12 unidades.', p: 13800, v: 1 },
+    { n: 'Tacitas Dulces', d: '20 unidades. Rellenas con mermelada casera, con cobertura y toppings.', p: 27600, v: 1 },
+    { n: 'Dulces de Cóctel', d: '100 unidades. Cocadas, galletas, trufas, snickers.', p: 69600, v: 1 },
+  ]},
+  { cat: 'Para Compartir', items: [
+    { n: 'Lasaña Tradicional o Vegana en Alusa', d: '6 personas.', p: 43000 },
+    { n: 'Quiches', d: '6 porciones, a elección: pollo-espinaca / cebollín-champiñón-jamón / zapallo-queso azul-nueces / choclo-cebolla caramelizada-aceitunas / espinaca-tomate deshidratado-queso de cabra.', p: 23000 },
+    { n: 'Pastel de Choclo Tradicional o Vegano en Alusa', d: '6 porciones.', p: 43000 },
+    { n: 'Ceviche de Champiñón + Galletas', d: '1/2 kilo.', p: 25000, v: 1 },
+    { n: 'Ceviche de Palmitos + Galletas', d: '1/2 kilo.', p: 25000, v: 1 },
+    { n: 'Crudo + Salsa de Pepinillos + Galletas', d: '1/2 kilo.', p: 32600 },
+    { n: 'Tabla Picoteo Tradicional', d: 'Quesos, jamón, salame, grissines, galletas, palmitos, pepinillos dill, aceitunas, uvas o frutillas, papitas nativas, dip, frutos secos, brochetas capresse, huevitos de codorniz. Disponible en 1 metro ($80.000) o 60 cm ($60.000).', p: null },
+    { n: 'Tabla Picoteo Vegana', d: 'Hummus, baba ganoush, dip de alcachofa, pepinillos, aceitunas, champiñones, fruta, frutos secos, mix de brochetas veganas, galletas, papas, pan masa madre. Disponible en 1 metro ($80.000) o 60 cm ($60.000).', p: null, v: 1 },
+    { n: 'Postres para Compartir', d: '8 porciones. Pie de limón o kuchen de nuez.', p: 22000 },
+    { n: 'Brazo de Reina', d: 'Completo.', p: 15000 },
+  ]},
+  { cat: 'Candy Bar', items: [
+    { n: 'Cakepops', d: '12 unidades. Mini tortas hechas bolitas, cubiertas con chocolate y decoraciones.', p: 7200 },
+    { n: 'Mini Cupcakes', d: '12 unidades. Bizcocho de vainilla o chocolate cubierto de crema o ganache y decorado.', p: 8400 },
+    { n: 'Alfajores Decorados', d: '12 unidades. Alfajor de maicena relleno de manjar, bañado en chocolate y decorado con colores y confites.', p: 8400 },
+    { n: 'Shot de Postres', d: '15 unidades. Mousse de manjar / pie de limón / pie de maracuyá / tiramisú / torta oreo / selva negra / torta frutal.', p: 24000 },
+    { n: 'Pastelitos Surtidos', d: '50 unidades.', p: 28000 },
+    { n: 'Profiteroles', d: '24 unidades.', p: 25000 },
+    { n: 'Macarons', d: '24 unidades.', p: 28000 },
+    { n: 'Brochetas de Frutas', d: '50 unidades.', p: 32500, v: 1 },
+    { n: 'Mini Cupcakes Veganos', d: '12 unidades. Bizcocho de vainilla o chocolate cubierto de crema o ganache y decorado.', p: 13800, v: 1 },
+    { n: 'Tacitas Dulces Veganas', d: '20 unidades. Rellenas con mermelada casera, con cobertura y toppings.', p: 27600, v: 1 },
+    { n: 'Dulces de Cóctel Veganos', d: '100 unidades. Cocadas, galletas, trufas, snickers.', p: 69600, v: 1 },
+    { n: 'Alfajores Decorados Veganos', d: '12 unidades.', p: 12000, v: 1 },
+  ]},
+  { cat: 'Cumpleaños', items: [
+    { n: 'Mini Hamburguesa', d: '20 unidades. Con queso cheddar y pepinillo.', p: 21000 },
+    { n: 'Mini Barros Luco', d: '20 unidades. Churrasco de vacuno, queso gouda.', p: 21000 },
+    { n: 'Mini Lomito Queso', d: '20 unidades. Lomito de cerdo, queso gouda.', p: 21000 },
+    { n: 'Mini Pollo Lechuga Mayo', d: '20 unidades.', p: 21000 },
+    { n: 'Mini Chacarero', d: '20 unidades. Churrasco, poroto verde, ají verde.', p: 23000 },
+    { n: 'Mini Mechada Italiana', d: '20 unidades.', p: 26000 },
+    { n: 'Mini Mechada Queso', d: '20 unidades.', p: 26000 },
+    { n: 'Mini Vegetariano', d: '20 unidades.', p: 21000, v: 1 },
+    { n: 'Mini Pizza', d: '20 unidades. Queso, jamón, tomate, aceituna.', p: 16000 },
+    { n: 'Mini Hotdog', d: '20 unidades. Salchicha y aderezos (mayonesa, ketchup, mostaza).', p: 18000 },
+    { n: 'Mini Hamburguesa Queso Vegana', d: '20 unidades.', p: 25200, v: 1 },
+    { n: 'Mini Pizza Vegana', d: '20 unidades. Queso, tomate, aceituna.', p: 22000, v: 1 },
+    { n: 'Mini Hotdog Vegano', d: '20 unidades. Salchicha y aderezos.', p: 24000, v: 1 },
+  ]},
+  { cat: 'Promociones', items: [
+    { n: 'Promo 1 · 7 personas', d: '10 pinchos, 20 tapaditos, 10 empanaditas, 15 mini quiches, 20 dulces.', p: 42000 },
+    { n: 'Promo 2 · 7-8 personas', d: '25 mini pastel de choclo, 25 tapaditos, 10 brochetas mediterráneas, 15 empanaditas.', p: 45600 },
+    { n: 'Promo 3 · 10 personas', d: '20 bruschettas, 30 tapaditos, 15 pinchos, 30 dulces.', p: 52800 },
+    { n: 'Promo 4 · 12 personas', d: '20 mini quiche, 30 tapaditos, 15 pinchos, 20 mini pastel de choclo, 15 bruschettas, 40 dulces.', p: 75600 },
+    { n: 'Promo 5 · 15 personas', d: '20 pinchos, 20 mini quiche, 20 tapaditos, 30 dulces, 20 brochetas mixtas, 20 pastel de jaiba.', p: 96000 },
+    { n: 'Promo 6 · 25 personas', d: '50 pastel de jaiba, 100 tapaditos premium, 50 brochetas mar y tierra, 50 bruschettas, 30 shot de postre.', p: 169800 },
+    { n: 'Promo 7 · 25 personas', d: '60 mini quiches, 60 empanaditas, 50 tapaditos clásicos, 60 mini barros luco, 50 dulces.', p: 196200 },
+    { n: 'Pack Vegano · 100 bocados', d: '20 canapés, 20 tapaditos, 20 brochetas vegetales, 20 empanaditas, 20 dulces.', p: 85800, v: 1 },
+    { n: 'Tabla de Regalo', d: 'Quesos, fiambres, uvas o frutilla, galletas y grissines, aceitunas, semillas de calabaza y cranberries, dip, brochetas capresse, botellita de espumante o vino.', p: 75600 },
+  ]},
+];
+
+const cateringTabsEl = document.getElementById('cateringTabs');
+const cateringPanelsEl = document.getElementById('cateringPanels');
+const cateringCatKeys = CATERING_MENU.map(g => g.cat);
+let activeCateringCat = 'Todos';
+
+function renderCateringFilters() {
+  const cats = ['Todos', ...cateringCatKeys];
+  cateringTabsEl.innerHTML = '';
+  cats.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn' + (c === activeCateringCat ? ' active' : '');
+    btn.textContent = c;
+    btn.dataset.cat = c;
+    btn.addEventListener('click', () => { activeCateringCat = c; renderCateringFilters(); renderCateringMenu(); });
+    cateringTabsEl.appendChild(btn);
+  });
+}
+
+function renderCateringMenu() {
+  const groups = activeCateringCat === 'Todos' ? CATERING_MENU : CATERING_MENU.filter(g => g.cat === activeCateringCat);
+  cateringPanelsEl.innerHTML = '';
+  groups.forEach(g => {
+    const block = document.createElement('div');
+    block.className = 'menu-cat-block';
+
+    const h3 = document.createElement('h3');
+    h3.style.cssText = "font-family:'Baloo 2',sans-serif; font-weight:800; font-size:1.4rem; margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid rgba(23,20,15,0.12); color:var(--text);";
+    h3.textContent = g.cat;
+    block.appendChild(h3);
+
+    const grid = document.createElement('div');
+    grid.className = 'menu-grid';
+    g.items.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'menu-item static';
+
+      const textWrap = document.createElement('div');
+      textWrap.className = 'menu-item-text';
+
+      const nameSpan = document.createElement('span');
+      nameSpan.className = 'name';
+      nameSpan.textContent = item.n;
+      textWrap.appendChild(nameSpan);
+
+      if (item.v) {
+        const vegTag = document.createElement('span');
+        vegTag.className = 'veg-tag';
+        vegTag.textContent = 'VEG';
+        textWrap.appendChild(vegTag);
+      }
+
+      if (item.d) {
+        const descDiv = document.createElement('div');
+        descDiv.className = 'desc';
+        descDiv.textContent = item.d;
+        textWrap.appendChild(descDiv);
+      }
+
+      const priceDiv = document.createElement('div');
+      priceDiv.className = 'price mono';
+      priceDiv.textContent = item.p === null ? 'Consultar' : money(item.p);
+
+      row.appendChild(textWrap);
+      row.appendChild(priceDiv);
+      grid.appendChild(row);
+    });
+    block.appendChild(grid);
+    cateringPanelsEl.appendChild(block);
+  });
+}
+
+renderCateringFilters();
+renderCateringMenu();
+
 /* ---------- MODAL PRODUCTO ---------- */
 let currentItem = null;
 function openModal(item) {
