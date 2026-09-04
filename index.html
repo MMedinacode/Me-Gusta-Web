@@ -7,9 +7,11 @@
 
 <!-- ============================================================
      PROTOTIPO BETA — ME GUSTA (Coffee Bar & Catering)
-     Fotografías: de ejemplo (Unsplash) — reemplazar por fotos reales
-     del local antes de la entrega final. Carpeta fotos/ creada junto
-     a este proyecto para ir sumando fotos y el logo real cuando estén.
+     Fotografías y logo: reales, subidos por el cliente en fotos/,
+     comprimidas e incrustadas en base64 (ver script.js).
+     PENDIENTE: confirmar si el pedido por Uber Eats sigue activo —
+     la ficha revisada mostraba "Cerrado en Uber Eats desde el
+     2 feb 2026", así que no se agregó un botón de pedido ahí.
      ============================================================ -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +25,7 @@
 <header id="site-header">
   <div class="nav-inner">
     <button class="nav-brand" data-tab="inicio">
-      <span class="stamp"><span><span class="l1">me</span><span class="l2">gusta</span></span></span>
+      <img id="logoNav" class="logo-real" alt="Me Gusta">
       <strong>Me Gusta</strong>
     </button>
     <nav class="nav-links" id="main-nav">
@@ -48,9 +50,9 @@
 <section id="tab-inicio" class="tab-panel active" data-tab-panel="inicio">
 <section class="hero">
   <div class="bg-photo">
-    <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=1600&auto=format&fit=crop" alt="">
+    <img id="heroPhoto" alt="El patio con el árbol de Me Gusta">
   </div>
-  <div class="hero-stamp stamp reveal"><span><span class="l1">me</span><span class="l2">gusta</span></span></div>
+  <img id="logoHero" class="hero-stamp logo-real reveal" alt="Me Gusta">
   <span class="eyebrow reveal">Coffee bar &amp; catering</span>
   <h1 class="reveal">Nos <em>gusta</em><br>recibirte así</h1>
   <p class="tagline reveal">Café de especialidad, brunch, pastelería y opciones veganas en un patio con un árbol de verdad en el medio. Un espacio pensado para que cualquiera se sienta bienvenido — familias, grupos, perros incluidos.</p>
@@ -105,7 +107,7 @@
   </div>
 </section>
 
-<div class="divider"><span class="stamp" style="width:34px;height:34px;"><span><span class="l1">me</span><span class="l2">gusta</span></span></span></div>
+<div class="divider"><img id="logoDivider" class="logo-real" style="width:34px;height:34px;" alt="Me Gusta"></div>
 
 <section style="background:var(--ink); color:var(--paper);">
   <div class="wrap dark">
@@ -114,12 +116,12 @@
       <h2>Nuestro espacio</h2>
     </div>
     <div class="gallery-grid reveal">
-      <figure><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=800&auto=format&fit=crop" alt="Interior con estructura de madera y luces cálidas"><div class="gallery-tag">El patio del árbol</div></figure>
-      <figure><img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=800&auto=format&fit=crop" alt="Barra de café"><div class="gallery-tag">Barra y cocina</div></figure>
-      <figure><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800&auto=format&fit=crop" alt="Café con arte latte"><div class="gallery-tag">Café de especialidad</div></figure>
-      <figure><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=800&auto=format&fit=crop" alt="Mesa de catering"><div class="gallery-tag">Servicio de catering</div></figure>
+      <figure><img id="galPatio" alt="El patio con el árbol de Me Gusta"><div class="gallery-tag">El patio del árbol</div></figure>
+      <figure><img id="galInterior" alt="Interior del local"><div class="gallery-tag">Adentro</div></figure>
+      <figure><img id="galCafe" alt="Café con arte latte y cupcake"><div class="gallery-tag">Café de especialidad</div></figure>
+      <figure><img id="galCatering" alt="Mesa de catering para eventos"><div class="gallery-tag">Servicio de catering</div></figure>
     </div>
-    <!-- FOTOGRAFÍAS DE EJEMPLO (Unsplash): reemplazar todas por fotos reales del local antes de la entrega final -->
+    <!-- FOTOGRAFÍAS REALES del local, subidas por el cliente. -->
   </div>
 </section>
 
@@ -137,6 +139,22 @@
       <span class="badge" style="background:rgba(46,143,146,0.1); border-color:rgba(46,143,146,0.4); color:var(--teal);">Ideal para ir con niños</span>
     </div>
   </div>
+</section>
+
+<section style="background:var(--ink); color:var(--paper); padding-top:0;">
+  <div class="wrap reveal" style="display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:20px; overflow:hidden; border:1px solid rgba(255,250,241,0.12);">
+    <div style="min-height:260px;">
+      <img id="galEventos" alt="Mesa de catering para eventos de Me Gusta" style="height:100%;">
+    </div>
+    <div style="padding:44px; display:flex; flex-direction:column; justify-content:center;">
+      <span class="eyebrow" style="color:var(--magenta-2);">catering &amp; eventos</span>
+      <h2 style="margin:10px 0 12px; font-size:clamp(1.6rem,3vw,2.2rem);">Coffee break, banquetería y coctelería para tu evento</h2>
+      <p style="color:rgba(255,250,241,0.78); line-height:1.7; margin-bottom:22px;">Además del coffee bar, Me Gusta tiene un servicio propio de catering y eventos — coffee break, banquetería y coctelería para todo tipo de ocasión.</p>
+      <a class="btn btn-outline" href="https://instagram.com/eventosmegusta_cl" target="_blank" rel="noopener" style="align-self:flex-start;">Ver @eventosmegusta_cl →</a>
+    </div>
+  </div>
+  <!-- PENDIENTE: el cliente va a mandar un catálogo (Drive) con el detalle del servicio de eventos;
+       cuando llegue, se puede ampliar esto a una pestaña propia de "Eventos" en vez de este bloque. -->
 </section>
 </section>
 
@@ -250,7 +268,7 @@
 
 <!-- ======================= FOOTER ======================= -->
 <footer class="site-footer">
-  <span class="stamp"><span><span class="l1">me</span><span class="l2">gusta</span></span></span>
+  <img id="logoFooter" class="logo-real" alt="Me Gusta">
   Coffee Bar &amp; Catering &nbsp;·&nbsp;
   <a href="https://instagram.com/megusta_cl" target="_blank" rel="noopener">@megusta_cl</a>
   &nbsp;·&nbsp; Sitio demo diseñado con cariño
@@ -286,6 +304,7 @@
 <div class="overlay modal-overlay" id="modalOverlay">
   <div class="modal-box">
     <button class="close-x" id="modalCloseBtn">&times;</button>
+    <img id="modalPhoto" class="modal-photo hidden" alt="">
     <h3 id="modalName"></h3>
     <div class="price mono" id="modalPrice"></div>
     <p class="desc" id="modalDesc"></p>
