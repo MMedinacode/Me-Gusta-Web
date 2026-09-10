@@ -44,13 +44,15 @@ button{ font-family:inherit; cursor:pointer; }
 .cart-btn{ position:relative; background:none; border:1.5px solid rgba(255,250,241,0.4); color:#fff; padding:8px 14px; border-radius:999px; font-size:0.8rem; font-weight:600; display:flex; align-items:center; gap:8px; }
 .cart-btn:hover{ border-color:var(--magenta-2); }
 .cart-count{ background:var(--magenta); color:#fff; font-family:'Space Mono',monospace; font-size:0.7rem; border-radius:999px; padding:1px 7px; min-width:18px; text-align:center; }
-.nav-toggle{ display:none; background:none; border:none; color:#fff; cursor:pointer; }
+.nav-toggle{ display:none; background:none; border:none; color:#fff; cursor:pointer;
+  min-width:44px; min-height:44px; align-items:center; justify-content:center;
+  /* medía 34x27: por debajo de 44x44 hay que apuntar con el dedo */ }
 @media (max-width:800px){
   .nav-links{ position:fixed; top:62px; left:0; right:0; background:var(--ink); flex-direction:column; gap:0; max-height:0; overflow:hidden; transition:max-height .3s ease; }
   .nav-links.open{ max-height:340px; }
   .nav-link{ display:block; width:100%; padding:15px 24px; border-top:1px solid rgba(255,255,255,0.08); }
   .nav-link.active::after{ display:none; }
-  .nav-toggle{ display:block; }
+  .nav-toggle{ display:flex; }
 }
 
 /* ===================== TAB PANELS (SPA) ===================== */
